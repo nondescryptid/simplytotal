@@ -61,6 +61,7 @@ with st.form("transactions", clear_on_submit=False):
 
 if st.button("Get transactions for a specific date range"):
     with st.spinner("Please wait, we are fetching your transactions"):
+        rider = simplygo.Ride(user_val, password_val)
         total = get_txn_from_range(rider, card_code, start_date, end_date)
         st.write(f"Your total spent from {start_date} to {end_date} is ${total}")
 
