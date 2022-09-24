@@ -7,7 +7,6 @@ import pandas as pd
 import numpy as np 
 from decimal import Decimal
 
-rider=None 
 def get_card_info():
     cards = rider.get_card_info()
     card_list = []
@@ -49,6 +48,7 @@ with st.form("login", clear_on_submit=True):
 if submitted:
     st.subheader("Cards you use for SimplyGo")
     st.write("Take note of the unique code linked to each card!")
+    global rider 
     rider = simplygo.Ride(user_val, password_val)
     st.write(get_card_info())
 
