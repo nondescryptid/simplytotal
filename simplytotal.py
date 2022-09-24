@@ -24,14 +24,14 @@ if submitted:
     global rider 
     rider = simplygo.Ride(user_val, password_val)
 
-def get_card_info():
+def get_card_info(rider):
         cards = rider.get_card_info()
         card_list = []
         for card in cards: 
             card_list.append({card["Description"], card["UniqueCode"]})
         return card_list
     
-def get_txn_from_range(card_code, start_date, end_date):
+def get_txn_from_range(rider, card_code, start_date, end_date):
     txns = rider.get_transactions(card_code, start_date, end_date)
     hist = txns["Histories"]
     fare_arr = []
