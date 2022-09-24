@@ -45,7 +45,8 @@ with st.form("login", clear_on_submit=True):
     password_val = st.text_input("Password")
     
     submitted = st.form_submit_button("Submit")
-    rider = simplygo.Ride(user_val, password_val)
+    if submitted:
+        rider = simplygo.Ride(user_val, password_val)
 
 
 if submitted:
