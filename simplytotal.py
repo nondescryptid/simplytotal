@@ -8,22 +8,6 @@ import numpy as np
 from decimal import Decimal
 
 
-
-st.title("SimplyGo Transaction")
-
-st.header("Log in to your SimplyGo account")
-with st.form("login", clear_on_submit=True): 
-    user_val = st.text_input("Username (Phone number / email)")
-    password_val = st.text_input("Password")
-    
-    submitted = st.form_submit_button("Submit")
-
-if submitted:
-    st.subheader("Cards you use for SimplyGo")
-    st.write("Take note of the unique code linked to each card!")
-    global rider 
-    rider = simplygo.Ride(user_val, password_val)
-
 def get_card_info(rider):
         cards = rider.get_card_info()
         card_list = []
@@ -52,8 +36,22 @@ def sum_total_txns(arr):
     clean_fares = [Decimal(fare) for fare in fares]
     total = sum(clean_fares)
     return total 
+
+st.title("SimplyGo Transaction")
+
+st.header("Log in to your SimplyGo account")
+with st.form("login", clear_on_submit=True): 
+    user_val = st.text_input("Username (Phone number / email)")
+    password_val = st.text_input("Password")
     
-st.write(get_card_info())
+    submitted = st.form_submit_button("Submit")
+
+if submitted:
+    st.subheader("Cards you use for SimplyGo")
+    st.write("Take note of the unique code linked to each card!")
+    global rider 
+    rider = simplygo.Ride(user_val, password_val)
+    st.write(get_card_info(rider))
 
 with st.form("transactions", clear_on_submit=False):
     card_code = st.text_input("Your card's unique code")
@@ -63,7 +61,7 @@ with st.form("transactions", clear_on_submit=False):
 
 if st.button("Get transactions for a specific date range"):
     with st.spinner("Please wait, we are fetching your transactions"):
-        total = get_txn_from_range(card_code, start_date, end_date)
+        total = get_txn_from_range(rider, card_code, start_date, end_date)
         st.write(f"Your total spent from {start_date} to {end_date} is ${total}")
 
 
