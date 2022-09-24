@@ -9,6 +9,21 @@ from decimal import Decimal
 
 rider = simplygo.Ride(user_name="", user_pass="")
 
+
+st.title("SimplyGo Transaction")
+
+st.header("Log in to your SimplyGo account")
+with st.form("login", clear_on_submit=True): 
+    user_val = st.text_input("Username (Phone number / email)")
+    password_val = st.text_input("Password")
+    
+    submitted = st.form_submit_button("Submit")
+
+if submitted:
+    st.subheader("Cards you use for SimplyGo")
+    st.write("Take note of the unique code linked to each card!")
+    rider = simplygo.Ride(user_val, password_val)
+
 def get_card_info():
         cards = rider.get_card_info()
         card_list = []
@@ -16,8 +31,6 @@ def get_card_info():
             card_list.append({card["Description"], card["UniqueCode"]})
         return card_list
     
-
-
 def get_txn_from_range(card_code, start_date, end_date):
     txns = rider.get_transactions(card_code, start_date, end_date)
     hist = txns["Histories"]
@@ -39,22 +52,9 @@ def sum_total_txns(arr):
     clean_fares = [Decimal(fare) for fare in fares]
     total = sum(clean_fares)
     return total 
-
-st.title("SimplyGo Transaction")
-
-st.header("Log in to your SimplyGo account")
-with st.form("login", clear_on_submit=True): 
-    user_val = st.text_input("Username (Phone number / email)")
-    password_val = st.text_input("Password")
     
-    submitted = st.form_submit_button("Submit")
+st.write(get_card_info())
 
-if submitted:
-    st.subheader("Cards you use for SimplyGo")
-    st.write("Take note of the unique code linked to each card!")
-    rider = simplygo.Ride(user_val, password_val)
-    st.write(get_card_info())
-    
 with st.form("transactions", clear_on_submit=False):
     card_code = st.text_input("Your card's unique code")
     start_date = st.text_input("Start date in DD-MM-YYYY format")
