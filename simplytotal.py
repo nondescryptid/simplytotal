@@ -65,4 +65,5 @@ if st.button("Get transactions for a specific date range"):
         total = get_txn_from_range(rider, card_code, start_date, end_date)
         st.write(f"Your total spent from {start_date} to {end_date} is ${total}")
 
-
+if st.button("Reset and exit"):
+    rider = None 
