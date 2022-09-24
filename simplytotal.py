@@ -7,7 +7,7 @@ import pandas as pd
 import numpy as np 
 from decimal import Decimal
 
-
+rider=None 
 def get_card_info():
     cards = rider.get_card_info()
     card_list = []
