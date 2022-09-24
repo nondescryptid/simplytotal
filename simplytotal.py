@@ -45,13 +45,11 @@ with st.form("login", clear_on_submit=True):
     password_val = st.text_input("Password")
     
     submitted = st.form_submit_button("Submit")
-    if submitted:
-        rider = simplygo.Ride(user_val, password_val)
-
 
 if submitted:
     st.subheader("Cards you use for SimplyGo")
     st.write("Take note of the unique code linked to each card!")
+    rider = simplygo.Ride(user_val, password_val)
     st.write(get_card_info())
 
 with st.form("transactions", clear_on_submit=False):
