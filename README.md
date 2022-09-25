@@ -12,3 +12,8 @@ SimplyGo lets you retrieve transactions from a specific date range, but doesn't 
 There's supposedly a "Monthly Statistics" feature, but it isn't working for me :( 
 
 ![Screenshot 2022-09-25 at 9 28 06 PM](https://user-images.githubusercontent.com/37551277/192146066-524342fd-6cd9-48be-a45c-8cd34b0602ea.png)
+
+# Stuff I want to work on
+- Resolve issue where I log in on SimplyGo and my card's details (thankfully just the SimplyGo ID and not anything consequential) is reflected for anyone who visits the app too 
+- Turn JSON into a dataframe to display all transactions in a given range
+- Button + function to fetch expenditure for the past X months 
