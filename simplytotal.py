@@ -54,8 +54,8 @@ st.header("2. Get the unique code associated with your cards")
 if submitted:
     st.write("Take note of the unique code linked to each card!")
     global rider 
-    rider = simplygo.Ride(state.user_val, state.password_val)
-    st.write(get_card_info(rider))
+    state.rider = simplygo.Ride(state.user_val, state.password_val)
+    st.write(get_card_info(state.rider))
 
 st.header("3. Retrieve transactions for a specific card")
 
@@ -65,10 +65,9 @@ with st.form("transactions", clear_on_submit=False):
     end_date = st.text_input("End date in DD-MM-YYYY format")
     submitted = st.form_submit_button("Submit")
 
-st.header("Get the total amount of transactions for the date range specified")
-if st.button("Get transactions for a specific date range"):
+st.header("4. Get the total amount of transactions for the date range specified")
+if start_date and end_date: 
     with st.spinner("Please wait, we are fetching your transactions"):
-        rider = simplygo.Ride(state.user_val, state.password_val)
-        total = get_txn_from_range(rider, card_code, start_date, end_date)
+        total = get_txn_from_range(state.rider, card_code, start_date, end_date)
         st.write(f"Your total spent from {start_date} to {end_date} is ${total}")
 
