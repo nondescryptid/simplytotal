@@ -53,7 +53,6 @@ st.header("2. Get the unique code associated with your cards")
 
 if submitted:
     st.write("Take note of the unique code linked to each card!")
-    global rider 
     state.rider = simplygo.Ride(state.user_val, state.password_val)
     st.write(get_card_info(state.rider))
 
