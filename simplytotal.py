@@ -7,6 +7,7 @@ import pandas as pd
 import numpy as np 
 from decimal import Decimal
 
+state = st.session_state 
 
 def get_card_info(rider):
         cards = rider.get_card_info()
@@ -41,16 +42,18 @@ st.title("SimplyGo Transaction")
 
 st.header("Log in to your SimplyGo account")
 with st.form("login", clear_on_submit=True): 
-    user_val = st.text_input("Username (Phone number / email)")
-    password_val = st.text_input("Password")
+    # Save user + pw in session state
+    state['user_val'] = st.text_input("Username (Phone number / email)")
+    state['password_val'] = st.text_input("Password")
     
     submitted = st.form_submit_button("Submit")
 
 if submitted:
+    st.write(st.session_state)
     st.subheader("Cards you use for SimplyGo")
     st.write("Take note of the unique code linked to each card!")
     global rider 
-    rider = simplygo.Ride(user_val, password_val)
+    rider = simplygo.Ride(state.user_val, state.password_val)
     st.write(get_card_info(rider))
 
 with st.form("transactions", clear_on_submit=False):
@@ -61,9 +64,7 @@ with st.form("transactions", clear_on_submit=False):
 
 if st.button("Get transactions for a specific date range"):
     with st.spinner("Please wait, we are fetching your transactions"):
-        rider = simplygo.Ride(user_val, password_val)
+        rider = simplygo.Ride(state.user_val, state.password_val)
         total = get_txn_from_range(rider, card_code, start_date, end_date)
         st.write(f"Your total spent from {start_date} to {end_date} is ${total}")
 
-if st.button("Reset and exit"):
-    rider = None 
