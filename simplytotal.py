@@ -38,9 +38,10 @@ def sum_total_txns(arr):
     total = sum(clean_fares)
     return total 
 
-st.title("SimplyGo Transaction")
+st.title("Total up your SimplyGo transactions")
+st.write("Because SimplyGo's website won't do this for some reason")
 
-st.header("Log in to your SimplyGo account")
+st.header("1. Log in to your SimplyGo account")
 with st.form("login", clear_on_submit=True): 
     # Save user + pw in session state
     state['user_val'] = st.text_input("Username (Phone number / email)")
@@ -48,13 +49,15 @@ with st.form("login", clear_on_submit=True):
     
     submitted = st.form_submit_button("Submit")
 
+st.header("2. Get the unique code associated with your cards")
+
 if submitted:
-    st.write(st.session_state)
-    st.subheader("Cards you use for SimplyGo")
     st.write("Take note of the unique code linked to each card!")
     global rider 
     rider = simplygo.Ride(state.user_val, state.password_val)
     st.write(get_card_info(rider))
+
+st.header("3. Retrieve transactions for a specific card")
 
 with st.form("transactions", clear_on_submit=False):
     card_code = st.text_input("Your card's unique code")
@@ -62,6 +65,7 @@ with st.form("transactions", clear_on_submit=False):
     end_date = st.text_input("End date in DD-MM-YYYY format")
     submitted = st.form_submit_button("Submit")
 
+st.header("Get the total amount of transactions for the date range specified")
 if st.button("Get transactions for a specific date range"):
     with st.spinner("Please wait, we are fetching your transactions"):
         rider = simplygo.Ride(state.user_val, state.password_val)
